@@ -5,6 +5,8 @@ namespace SingletonPattern
   public class President
   {
     static President instance;
+    static readonly object _lock = new object();
+    
     // Private constructor
     private President()
     {
@@ -15,7 +17,9 @@ namespace SingletonPattern
     public static President get_instance()
     {
       if (instance == null) {
-        instance = new President();
+        lock(_lock){
+          instance = new President();
+        }
       }
       return instance;
     }
